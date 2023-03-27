@@ -5,10 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
+    "start": "node src/index.js",
     "dev": "nodemon src/index.js",
     "test": "mocha Tests/*.spec.js --color",
-    "lint": "eslint src/ * --color",
-    "start": "node src/index.js"
+    "lint": "eslint src/* --color"
   },
   "repository": {
     "type": "git",
