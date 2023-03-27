@@ -1,0 +1,22 @@
+{
+  "name": "studnet",
+  "version": "1.0.0",
+  "description": "web site for sharing student",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RaphaelBenoliel/StudNet.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RaphaelBenoliel/StudNet/issues"
+  },
+  "homepage": "https://github.com/RaphaelBenoliel/StudNet#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
