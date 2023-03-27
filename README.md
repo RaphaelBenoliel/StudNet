@@ -1,2 +1,2 @@
 # StudNet
-Web site for sharing academic information for students 
+Web site for sharing academic information for student

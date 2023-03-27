@@ -5,9 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon index.js",
-    "test": "mocha Tests/*.spec.js --color"
-  
+    "dev": "nodemon src/index.js",
+    "test": "mocha Tests/*.spec.js --color",
+    "lint": "eslint src/ * --color",
+    "start": "node src/index.js"
   },
   "repository": {
     "type": "git",
@@ -24,5 +25,10 @@
     "express": "^4.18.2",
     "mocha": "^10.2.0",
     "nodemon": "^2.0.22"
+  },
+  "devDependencies": {
+    "eslint": "^8.36.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.27.5"
   }
 }
