@@ -19,7 +19,9 @@
   },
   "homepage": "https://github.com/RaphaelBenoliel/StudNet#readme",
   "dependencies": {
+    "chai": "^4.3.7",
     "express": "^4.18.2",
+    "mocha": "^10.2.0",
     "nodemon": "^2.0.22"
   }
 }
