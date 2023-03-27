@@ -1,7 +1,9 @@
+/* eslint-disable eol-last */
+/* eslint-disable indent */
 import express from 'express';
 
 const app = express();
-const port = process.env.PORT||3000;
+const port = process.env.PORT || 3000;
 app.get('/', (req, res) => {
     console.log('New request from HomePage.');
     res.send('Test');
