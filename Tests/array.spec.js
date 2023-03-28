@@ -1,3 +1,5 @@
+/* eslint-disable no-undef */
+/* eslint-disable indent */
 import { expect } from 'chai';
 
 describe('Arrays', () => {
