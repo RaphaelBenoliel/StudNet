@@ -1,7 +1,6 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-console */
-
 import express from 'express';
 import cors from 'cors';
 import authRouter from './routes/AuthRoute.js';
