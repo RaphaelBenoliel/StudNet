@@ -11,7 +11,7 @@ const authRouter = express.Router();
 authRouter.get('/auth', async (req, res) => {
   const requestObjcet = req.params;
   const result = await checkAuth(requestObjcet);
-  const { email, password } = req.body;
+  const { email, password } = req.params;
   try {
     await User.create({ email, password });
     res.send({ status: 'ok' });
