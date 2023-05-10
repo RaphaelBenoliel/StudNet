@@ -9,15 +9,16 @@ const User = mongoose.model('UserInfo');
 const authRouter = express.Router();
 
 authRouter.get('/auth', async (req, res) => {
+  const requestObjcet = req.params;
+  const result = await checkAuth(requestObjcet);
   const { email, password } = req.body;
   try {
     await User.create({ email, password });
     res.send({ status: 'ok' });
+    console.log('User created');
   } catch (error) {
     res.send({ status: 'error' });
   }
-  const requestObjcet = req.params;
-  const result = await checkAuth(requestObjcet);
   return res.status(result.status).json(result.json);
 });
 
