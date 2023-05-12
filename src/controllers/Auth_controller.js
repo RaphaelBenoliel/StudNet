@@ -11,7 +11,15 @@ const User = mongoose.model('UserInfo');
 export const createAuth = async (requestObject) => {
   console.log(`-> GOT CREATE AUTH REQUEST\n\t${requestObject.email}`);
   try {
-    await User.create(requestObject);
+    const check = await User.create(requestObject);
+    if (check) {
+      console.log('User already exists');
+      const resStatus = 201;
+      const resJson = {
+        message: 'This email is already registered!',
+      };
+      return { status: resStatus, json: resJson };
+    }
     console.log('User created');
     const resStatus = 200;
     const resJson = {
@@ -20,11 +28,6 @@ export const createAuth = async (requestObject) => {
     return { status: resStatus, json: resJson };
   } catch (error) {
     console.error('Error saving user:', error);
-    const resStatus = 201;
-    const resJson = {
-      message: 'This email is already registered!',
-    };
-    return { status: resStatus, json: resJson };
   }
 };
 export const checkAuth = async (requestObject) => {
