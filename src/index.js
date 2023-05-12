@@ -1,3 +1,4 @@
+/* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-console */
@@ -18,7 +19,7 @@ async function connectToDB() {
     console.log('Error connecting to DB');
   }
 }
-connectToDB();
+
 const configureApp = () => {
   app.use(cors());
 };
@@ -28,17 +29,17 @@ const addRouters = () => {
 };
 
 app.get('/', (req, res) => {
-  console.log('New request from HomePage.');
+  console.log('New request from Backend.');
   res.send('<h1>Hi from srever<h1/>');
 });
 
+connectToDB();
 const startServer = async () => {
   configureApp();
   addRouters();
-  const port = process.env.PORT || 1000;
+  const port = process.env.PORT || 5001;
   app.listen(port, () => {
     console.log(`Server is running at port: ${port}`);
   });
 };
-
 await startServer();
