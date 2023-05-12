@@ -11,7 +11,7 @@ const User = mongoose.model('UserInfo');
 export const createAuth = async (requestObject) => {
   console.log(`-> GOT CREATE AUTH REQUEST\n\t${requestObject.email}`);
   try {
-    const check = await User.create(requestObject);
+    const check = await User.findOne(requestObject.email);
     if (check) {
       console.log('User already exists');
       const resStatus = 201;
@@ -20,6 +20,7 @@ export const createAuth = async (requestObject) => {
       };
       return { status: resStatus, json: resJson };
     }
+    await User.create(requestObject);
     console.log('User created');
     const resStatus = 200;
     const resJson = {
