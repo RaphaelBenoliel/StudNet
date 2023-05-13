@@ -37,7 +37,7 @@ connectToDB();
 const startServer = async () => {
   configureApp();
   addRouters();
-  const port = process.env.PORT || 5001;
+  const port = process.env.PORT || 5002;
   app.listen(port, () => {
     console.log(`Server is running at port: ${port}`);
   });

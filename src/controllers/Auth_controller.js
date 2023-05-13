@@ -40,19 +40,20 @@ export const checkAuth = async (requestObject) => {
       console.log('User found');
       const resStatus = 200;
       const resJson = {
-        message: 'You are now logged in!',
+        message: `Hello ${user.firstName} You are now logged in!`,
+        firstName: user.firstName,
       };
       return { status: resStatus, json: resJson };
     }
     if (usere) {
-      const resStatus = 202;
+      const resStatus = 201;
       const resJson = {
         message: 'Wrong password!',
       };
       return { status: resStatus, json: resJson };
     }
     console.log('User not found');
-    const resStatus = 201;
+    const resStatus = 202;
     const resJson = {
       message: 'User not found, You must register first!',
     };
