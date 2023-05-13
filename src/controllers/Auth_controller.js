@@ -14,7 +14,7 @@ export const createAuth = async (requestObject) => {
     const check = await User.findOne({ email: requestObject.email });
     if (check) {
       console.log('User already exists');
-      const resStatus = 'email exists';
+      const resStatus = 201;
       const resJson = {
         message: 'This email is already registered!',
       };
