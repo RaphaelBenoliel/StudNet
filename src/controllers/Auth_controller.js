@@ -11,7 +11,7 @@ const User = mongoose.model('UserInfo');
 export const createAuth = async (requestObject) => {
   console.log(`-> GOT CREATE AUTH REQUEST\n\t${requestObject.email}`);
   try {
-    const check = await User.findOne(requestObject.email);
+    const check = await User.findOne({ email: requestObject.email });
     if (check) {
       console.log('User already exists');
       const resStatus = 201;
