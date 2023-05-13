@@ -1,3 +1,4 @@
+/* eslint-disable import/prefer-default-export */
 /* eslint-disable no-unused-vars */
 import mongoose from 'mongoose';
 
@@ -10,6 +11,7 @@ const UserInfo = new mongoose.Schema(
     },
     password: {
       type: String,
+      index: { unique: false, dropDups: true },
       required: true,
     },
     userName: {

@@ -3,67 +3,36 @@
 /* eslint-disable import/extensions */
 /* eslint-disable no-console */
 /* eslint-disable import/prefer-default-export */
-import mongoose from 'mongoose';
-import '../module/UserInfo.js';
+import { createUser, getUsers } from '../TableActions/UserActions.js';
 
-const User = mongoose.model('UserInfo');
+export const requestSuccess = (data) => ({ success: true, data });
+
+export const requestFailure = (data) => ({ success: false, data });
 
 export const createAuth = async (requestObject) => {
   console.log(`-> GOT CREATE AUTH REQUEST\n\t${requestObject.email}`);
   try {
-    const check = await User.findOne({ email: requestObject.email });
-    if (check) {
-      console.log('User already exists');
-      const resStatus = 201;
-      const resJson = {
-        message: 'This email is already registered!',
-      };
-      return { status: resStatus, json: resJson };
-    }
-    await User.create(requestObject);
-    console.log('User created');
-    const resStatus = 200;
-    const resJson = {
-      message: 'You are now registered!',
-    };
-    return { status: resStatus, json: resJson };
+    const user = await getUsers({ email: requestObject.email });
+    if (user.success) return requestFailure({ message: 'The email alredy registered' });
+    const newUser = await createUser(requestObject);
+    if (!newUser) return requestFailure({ message: 'Error creating user' });
+    console.log(`\t${newUser.email} is now registered!`);
+    return requestSuccess({ message: `Hello ${newUser.firstName}, You are now registered!`, firstName: newUser.firstName });
   } catch (error) {
     console.error('Error saving user:', error);
   }
 };
+
 export const checkAuth = async (requestObject) => {
+  console.log(`[GOT AUTH REQUEST]\n\t${requestObject.email}`);
   try {
-    console.log(`-> GOT AUTH REQUEST\n\t${requestObject.email}`);
-    const user = await User.findOne({ email: requestObject.email, password: requestObject.password });
-    const usere = await User.findOne({ email: requestObject.email });
-    if (user) {
-      console.log('User found');
-      const resStatus = 200;
-      const resJson = {
-        message: `Hello ${user.firstName} You are now logged in!`,
-        firstName: user.firstName,
-      };
-      return { status: resStatus, json: resJson };
-    }
-    if (usere) {
-      const resStatus = 201;
-      const resJson = {
-        message: 'Wrong password!',
-      };
-      return { status: resStatus, json: resJson };
-    }
-    console.log('User not found');
-    const resStatus = 202;
-    const resJson = {
-      message: 'User not found, You must register first!',
-    };
-    return { status: resStatus, json: resJson };
+    const userResponse = await getUsers({ email: requestObject.email, password: requestObject.password });
+    if (!userResponse.success) return requestFailure({ message: userResponse.message });
+    const user = userResponse.data[0];
+    console.log(`\t${user.email} is now logged in!`);
+    return requestSuccess({ message: `Hello ${user.firstName}, You are now logged in!`, firstName: user.firstName });
   } catch (error) {
     console.error('Error finding user:', error);
-    const resStatus = 500;
-    const resJson = {
-      message: 'Internal server error',
-    };
-    return { status: resStatus, json: resJson };
+    return { status: 500, json: { message: 'Internal server error' } };
   }
 };
