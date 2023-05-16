@@ -30,7 +30,8 @@ export const checkAuth = async (requestObject) => {
     if (!userResponse.success) return requestFailure({ message: userResponse.message });
     const user = userResponse.data[0];
     console.log(`\t${user.email} is now logged in!`);
-    return requestSuccess({ message: `Hello ${user.firstName}, You are now logged in!`, firstName: user.firstName });
+    // message: `Hello ${user.firstName}, You are now logged in!`,
+    return requestSuccess({ user });
   } catch (error) {
     console.error('Error finding user:', error);
     return { status: 500, json: { message: 'Internal server error' } };
