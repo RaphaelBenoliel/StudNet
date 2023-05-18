@@ -11,7 +11,7 @@ export const getUsers = async (req) => {
     if (users.length > 0) return { success: true, data: users };
     const user = await User.findOne({ email: req.email });
     if (user) return { success: false };
-    return { success: false, message: 'You Must to register before log in.' };
+    return { success: false, message: 'user not found' };
   } catch (error) {
     console.error('Error getting users:', error);
     return { success: false, message: error.message };

@@ -13,7 +13,7 @@ export const createAuth = async (requestObject) => {
   console.log(`-> GOT CREATE AUTH REQUEST\n\t${requestObject.email}`);
   try {
     const user = await getUsers({ email: requestObject.email });
-    if (user.success) return requestFailure({ message: 'The email alredy registered' });
+    if (user.success) return requestFailure({ message: 'The email alredy registered.' });
     const newUser = await createUser(requestObject);
     if (!newUser) return requestFailure({ message: 'Error creating user' });
     console.log(`\t${newUser.email} is now registered!`);
@@ -28,6 +28,7 @@ export const checkAuth = async (requestObject) => {
   console.log(`[GOT AUTH REQUEST]\n\t${requestObject.email}`);
   try {
     const userResponse = await getUsers({ email: requestObject.email, password: requestObject.password });
+    if (!userResponse.success && userResponse.message === 'user not found') return requestFailure({ message: 'You must register before log in.' });
     if (!userResponse.success) return requestFailure({ message: 'The password does not match.' });
     const user = userResponse.data[0];
     console.log(`\t${user.email} is now logged in!`);
