@@ -17,7 +17,6 @@ export const createAuth = async (requestObject) => {
     const newUser = await createUser(requestObject);
     if (!newUser) return requestFailure({ message: 'Error creating user' });
     console.log(`\t${newUser.email} is now registered!`);
-    // message: `Hello ${newUser.firstName}, You are now registered!`
     return requestSuccess({ newUser });
   } catch (error) {
     console.error('Error saving user:', error);
