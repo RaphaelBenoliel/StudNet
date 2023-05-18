@@ -17,7 +17,8 @@ export const createAuth = async (requestObject) => {
     const newUser = await createUser(requestObject);
     if (!newUser) return requestFailure({ message: 'Error creating user' });
     console.log(`\t${newUser.email} is now registered!`);
-    return requestSuccess({ message: `Hello ${newUser.firstName}, You are now registered!`, firstName: newUser.firstName });
+    // message: `Hello ${newUser.firstName}, You are now registered!`
+    return requestSuccess({ newUser });
   } catch (error) {
     console.error('Error saving user:', error);
   }
@@ -27,10 +28,9 @@ export const checkAuth = async (requestObject) => {
   console.log(`[GOT AUTH REQUEST]\n\t${requestObject.email}`);
   try {
     const userResponse = await getUsers({ email: requestObject.email, password: requestObject.password });
-    if (!userResponse.success) return requestFailure({ message: userResponse.message });
+    if (!userResponse.success) return requestFailure({ message: 'The password does not match.' });
     const user = userResponse.data[0];
     console.log(`\t${user.email} is now logged in!`);
-    // message: `Hello ${user.firstName}, You are now logged in!`,
     return requestSuccess({ user });
   } catch (error) {
     console.error('Error finding user:', error);
