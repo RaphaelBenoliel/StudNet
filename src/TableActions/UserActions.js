@@ -10,7 +10,7 @@ export const getUsers = async (req) => {
     // console.log('getUsers result:', users);
     if (users.length > 0) return { success: true, data: users };
     const user = await User.findOne({ email: req.email });
-    if (user) return { success: false, message: 'The password does not match.' };
+    if (user) return { success: false };
     return { success: false, message: 'You Must to register before log in.' };
   } catch (error) {
     console.error('Error getting users:', error);
