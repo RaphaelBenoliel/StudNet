@@ -26,6 +26,8 @@ const configureApp = () => {
 
 const addRouters = () => {
   app.use('/', authRouter);
+  // app.use('/auth', authRouter);
+  // app.use('/log', authRouter);
 };
 
 app.get('/', (req, res) => {
