@@ -1,4 +1,5 @@
 import express from 'express';
+
 import { createPost } from '../TableActions/PostActions.js';
 import { respond } from './utils.js';
 
@@ -15,3 +16,5 @@ postRouter.post('/cpost', async (req, res) => {
   respond(result, res);
   // res.status(result.status).json(result.json);
 });
+
+export default postRouter;

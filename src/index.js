@@ -7,6 +7,7 @@ import mongoose from 'mongoose';
 // eslint-disable-next-line import/no-unresolved
 import cors from 'cors';
 import authRouter from './routes/AuthRoute.js';
+import postRouter from './routes/PostRoute.js';
 
 const app = express();
 
@@ -26,7 +27,7 @@ const configureApp = () => {
 
 const addRouters = () => {
   app.use('/', authRouter);
-  // app.use('/auth', authRouter);
+  app.use('/', postRouter);
   // app.use('/log', authRouter);
 };
 

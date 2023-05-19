@@ -1,6 +1,7 @@
-import { mongo } from 'mongoose';
+import mongoose from 'mongoose';
+import '../module/PostInfo.js';
 
-const Post = mongo.model('PostInfo');
+const Post = mongoose.model('PostInfo');
 export const createPost = async (req) => {
   const post = await Post.create(req);
   return post;
