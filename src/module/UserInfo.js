@@ -17,6 +17,7 @@ const UserInfo = new mongoose.Schema(
     userName: {
       type: String,
       required: true,
+      unique: true,
     },
     firstName: {
       type: String,
@@ -26,10 +27,15 @@ const UserInfo = new mongoose.Schema(
       type: String,
       required: true,
     },
+    picture: {
+      type: String,
+      default: 'https://i.imgur.com/2WZtUZa.png',
+    },
 
   },
   {
     collection: 'UserInfo',
+    timestamps: true,
   },
 );
 

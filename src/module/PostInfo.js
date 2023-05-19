@@ -12,13 +12,13 @@ const PostInfo = new mongoose.Schema(
       required: true,
     },
     likes: {
-      type: Number,
-      default: 0,
+      type: Map,
+      of: Boolean,
 
     },
     comments: {
-      type: Number,
-      default: 0,
+      type: Array,
+      default: [],
     },
     date: {
       type: Date,
