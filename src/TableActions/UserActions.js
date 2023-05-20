@@ -2,7 +2,8 @@
 /* eslint-disable import/extensions */
 /* eslint-disable no-console */
 import mongoose from 'mongoose';
-import '../module/UserInfo.js';
+import UserInfo from '../module/UserInfo.js';
+// import PostInfo from '../module/PostInfo.js';
 
 const User = mongoose.model('UserInfo');
 export const getUsers = async (req) => {
@@ -23,3 +24,60 @@ export const createUser = async (req) => {
   const user = await User.create(req);
   return user;
 };
+
+export const removeUser = async (userId) => {
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return { success: false, message: 'User not found' };
+    }
+    // Find all PostInfo documents that reference the user being removed
+    const postInfos = await mongoose.model('PostInfo').find({ _id: { $in: user.posts } });
+
+    // Delete each PostInfo document
+    await Promise.all(
+      postInfos.map(async (postInfo) => {
+        await postInfo.remove();
+      }),
+    );
+
+    // Remove the user
+    await user.remove();
+    return { success: true, message: 'User removed successfully' };
+  } catch (error) {
+    console.error('Error removing user:', error);
+    return { success: false, message: error.message };
+  }
+};
+
+export const updateUser = async (userId, update) => {
+  try {
+    const user = await User.findByIdAndUpdate(userId, update, { new: true });
+    if (!user) {
+      return { success: false, message: 'User not found' };
+    }
+    return { success: true, data: user };
+  } catch (error) {
+    console.error('Error updating user:', error);
+    return { success: false, message: error.message };
+  }
+};
+
+User.schema.pre('remove', async function (next) {
+  const user = this;
+  try {
+    // Find all PostInfo documents that reference the user being removed
+    const postInfos = await mongoose.model('PostInfo').find({ _id: { $in: user.posts } });
+    // Delete each PostInfo document
+    await Promise.all(
+      postInfos.map(async (postInfo) => {
+        await postInfo.remove();
+      }),
+    );
+    next();
+  } catch (error) {
+    next(error);
+  }
+});
+
+export { UserInfo };

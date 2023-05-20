@@ -31,11 +31,10 @@ const UserInfo = new mongoose.Schema(
       type: String,
       default: 'https://www.linkpicture.com/q/user_5.png',
     },
-    posts: {
+    posts: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'PostInfo',
-      default: [],
-    },
+    }],
   },
   {
     collection: 'UserInfo',
@@ -43,4 +42,6 @@ const UserInfo = new mongoose.Schema(
   },
 );
 
-mongoose.model('UserInfo', UserInfo);
+const UserInfoModel = mongoose.model('UserInfo', UserInfo);
+
+export default UserInfoModel;

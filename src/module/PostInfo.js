@@ -30,4 +30,5 @@ const PostInfo = new mongoose.Schema(
   },
 );
 
-mongoose.model('PostInfo', PostInfo);
+const PostInfoModel = mongoose.model('PostInfo', PostInfo);
+export default PostInfoModel;

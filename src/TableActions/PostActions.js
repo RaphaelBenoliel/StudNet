@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 /* eslint-disable import/extensions */
 import mongoose from 'mongoose';
-import '../module/PostInfo.js';
+import PostInfo from '../module/PostInfo.js';
 
 const Post = mongoose.model('PostInfo');
 
@@ -15,3 +15,5 @@ export const getPosts = async (req) => {
   const posts = await Post.find(req).populate('userID', 'firstName lastName picture');
   return posts;
 };
+
+export { PostInfo };
