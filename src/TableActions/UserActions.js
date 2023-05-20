@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable import/extensions */
+/* eslint-disable no-console */
 import mongoose from 'mongoose';
 import '../module/UserInfo.js';
 

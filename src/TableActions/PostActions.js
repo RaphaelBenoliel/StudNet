@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 import mongoose from 'mongoose';
-import '../module/PostInfo.js';
+import '../module/PostInfo';
 
 const Post = mongoose.model('PostInfo');
 

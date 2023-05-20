@@ -1,7 +1,7 @@
+/* eslint-disable no-console */
 import express from 'express';
-
-import { createPost, getPosts } from '../TableActions/PostActions.js';
-import { respond } from './utils.js';
+import { createPost, getPosts } from '../TableActions/PostActions';
+import { respond } from './utils';
 
 const postRouter = express.Router();
 postRouter.use(express.json());
