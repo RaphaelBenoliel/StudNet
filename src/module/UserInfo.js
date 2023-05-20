@@ -31,7 +31,11 @@ const UserInfo = new mongoose.Schema(
       type: String,
       default: 'https://www.linkpicture.com/q/user_5.png',
     },
-
+    posts: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'PostInfo',
+      default: [],
+    },
   },
   {
     collection: 'UserInfo',
