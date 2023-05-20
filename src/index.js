@@ -35,6 +35,10 @@ app.get('/', (req, res) => {
   console.log('New request from Backend.');
   res.send('<h1>Hi from srever<h1/>');
 });
+app.get('/home', (req, res) => {
+  console.log('New request from Backend.');
+  res.send('<h1>Hi from srever<h1/>');
+});
 
 connectToDB();
 const startServer = async () => {
