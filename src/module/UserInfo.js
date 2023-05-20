@@ -29,7 +29,7 @@ const UserInfo = new mongoose.Schema(
     },
     picture: {
       type: String,
-      default: 'https://i.imgur.com/2WZtUZa.png',
+      default: 'https://www.linkpicture.com/q/user_5.png',
     },
 
   },
