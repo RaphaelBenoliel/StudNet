@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
 /* eslint-disable import/extensions */
 import express from 'express';
-import { createPost, getPosts } from '../TableActions/PostActions.js';
+import {
+  createPost, getPosts, updatePost, deletePost,
+} from '../TableActions/PostActions.js';
 import { respond } from './utils.js';
 
 const postRouter = express.Router();
@@ -22,6 +24,18 @@ postRouter.post('/posts', async (req, res) => {
 //   const { _id: userID } = JSON.parse(auth);
 //   console.log('userID:', userID);
   const result = await getPosts();
+  respond(result, res);
+});
+postRouter.delete('/posts/:id', async (req, res) => {
+  const { id } = req.params;
+  const result = await deletePost(id);
+  respond(result, res);
+});
+
+postRouter.put('/posts/:id', async (req, res) => {
+  const { id } = req.params;
+  const { content } = req.body;
+  const result = await updatePost(id, content);
   respond(result, res);
 });
 
