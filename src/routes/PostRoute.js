@@ -27,8 +27,10 @@ postRouter.post('/posts', async (req, res) => {
   respond(result, res);
 });
 postRouter.delete('/posts/:id', async (req, res) => {
-  const { id } = req.params;
-  const result = await deletePost(id);
+  console.log('req30:', JSON.stringify(req.params));
+  // const { postId, auth } = req.params;
+  // const { _id: userID } = JSON.parse(auth);
+  const result = await deletePost(req.params.id);
   respond(result, res);
 });
 
