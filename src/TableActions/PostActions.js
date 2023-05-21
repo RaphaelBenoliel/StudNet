@@ -33,12 +33,13 @@ export const getPosts = async (req) => {
 
 export const deletePost = async (postId, userId) => {
   try {
+    console.log('36666>>>>>>>>>>>', postId);
     // Delete the post
     const post = await Post.findByIdAndDelete(postId);
     if (!post) {
       return { status: 404, json: { message: 'Post not found' } };
     }
-
+    console.log('>>>>>>>>>>>', userId);
     // Update the user document
     const user = await UserInfo.findById(userId);
     if (!user) {
