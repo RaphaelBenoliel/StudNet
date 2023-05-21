@@ -4,7 +4,7 @@
 /* eslint-disable no-console */
 import express from 'express';
 import mongoose from 'mongoose';
-import path from 'path';
+// eslint-disable-next-line import/no-unresolved
 import cors from 'cors';
 import authRouter from './routes/AuthRoute.js';
 import postRouter from './routes/PostRoute.js';
@@ -23,7 +23,6 @@ async function connectToDB() {
 
 const configureApp = () => {
   app.use(cors());
-  app.use(express.static(path.join(__dirname, 'client', 'build')));
 };
 
 const addRouters = () => {
@@ -32,12 +31,9 @@ const addRouters = () => {
   // app.use('/log', authRouter);
 };
 
-// app.get('/', (req, res) => {
-//   console.log('New request from Backend.');
-//   res.send('<h1>Hi from srever<h1/>');
-// });
-app.get('/', (req, res) => {
-  res.sendFile(__dirname, 'client', 'build', 'index.html');
+app.get('*', (req, res) => {
+  console.log('New request from Backend.');
+  res.send('<h1>Hi from srever<h1/>');
 });
 
 connectToDB();
