@@ -2,16 +2,18 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable no-console */
+// eslint-disable-next-line import/no-unresolved
 import express from 'express';
 import mongoose from 'mongoose';
-// eslint-disable-next-line import/no-unresolved
 import cors from 'cors';
+import path from 'path';
 import authRouter from './routes/AuthRoute.js';
 import postRouter from './routes/PostRoute.js';
 
 const app = express();
 
 const uri = 'mongodb+srv://raphabr:admin@studnetcluster.zu0mdlt.mongodb.net/?retryWrites=true&w=majority';
+
 async function connectToDB() {
   try {
     mongoose.connect(uri);
@@ -23,20 +25,20 @@ async function connectToDB() {
 
 const configureApp = () => {
   app.use(cors());
+  app.use(express.static(path.join(__dirname, 'client', 'build')));
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+  });
 };
 
 const addRouters = () => {
   app.use('/', authRouter);
   app.use('/', postRouter);
-  // app.use('/log', authRouter);
 };
 
-app.get('*', (req, res) => {
-  console.log('New request from Backend.');
-  res.send('<h1>Hi from srever<h1/>');
-});
-
 connectToDB();
+
 const startServer = async () => {
   configureApp();
   addRouters();
@@ -45,4 +47,5 @@ const startServer = async () => {
     console.log(`Server is running at port: ${port}`);
   });
 };
+
 await startServer();
