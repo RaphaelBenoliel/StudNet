@@ -45,7 +45,7 @@ connectToDB();
 const startServer = async () => {
   configureApp();
   addRouters();
-  app.use(express.static(path.join(__dirname, '../client/build')));
+  app.use(express.static(path.join(__dirname, 'public/index.html')));
 
   // API routes
   app.use('/api/auth', authRouter);
@@ -53,7 +53,7 @@ const startServer = async () => {
 
   // Serve the React app for all other routes
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../client/build/index.html'));
+    res.sendFile(path.join(__dirname, 'public/index.html'));
   });
   const port = process.env.PORT || 5002;
   app.listen(port, () => {
