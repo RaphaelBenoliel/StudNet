@@ -26,11 +26,13 @@ async function connectToDB() {
 
 const configureApp = () => {
   app.use(cors());
-  const __dirname = path.dirname(new URL(import.meta.url).pathname);
-  app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
+  const __filename = new URL(import.meta.url).pathname;
+  const __dirname = path.dirname(__filename);
+  const buildPath = path.join(__dirname, '..', 'client', 'build');
+  app.use(express.static(buildPath));
 
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
+    res.sendFile(path.join(buildPath, 'index.html'));
   });
 };
 
