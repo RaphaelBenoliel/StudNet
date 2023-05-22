@@ -9,6 +9,7 @@ import mongoose from 'mongoose';
 import cors from 'cors';
 import authRouter from './routes/AuthRoute.js';
 import postRouter from './routes/PostRoute.js';
+import mailRouter from './routes/MailRoute.js';
 
 const app = express();
 const uri = 'mongodb+srv://raphabr:admin@studnetcluster.zu0mdlt.mongodb.net/?retryWrites=true&w=majority';
@@ -28,6 +29,7 @@ const configureApp = () => {
 const addRouters = () => {
   app.use('/', authRouter);
   app.use('/', postRouter);
+  app.use('/', mailRouter);
   // app.use('/log', authRouter);
 };
 

@@ -26,4 +26,5 @@ authRouter.post('/log', async (req, res) => {
   // res.status(result.status).json(result.json);
   respond(await checkAuth(req.body), res);
 });
+
 export default authRouter;
