@@ -8,6 +8,8 @@ import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 import authRouter from './routes/AuthRoute.js';
 import postRouter from './routes/PostRoute.js';
 
@@ -26,8 +28,9 @@ async function connectToDB() {
 
 const configureApp = () => {
   app.use(cors());
-  const __filename = new URL(import.meta.url).pathname;
-  const __dirname = path.dirname(__filename);
+  const __filename = fileURLToPath(import.meta.url);
+  const __dirname = dirname(__filename);
+
   const buildPath = path.join(__dirname, '..', 'client', 'build');
   app.use(express.static(buildPath));
 
