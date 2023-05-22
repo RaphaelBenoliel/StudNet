@@ -30,7 +30,7 @@ const configureApp = () => {
   app.use(cors());
   const __filename = fileURLToPath(import.meta.url);
   const __dirname = dirname(__filename);
-  const buildPath = path.join(__dirname, '.', 'build');
+  const buildPath = path.join(__dirname, '..', '..', 'build');
   app.use(express.static(buildPath));
   app.get('*', (req, res) => {
     res.sendFile(path.join(buildPath, 'index.html'));
