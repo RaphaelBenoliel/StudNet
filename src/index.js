@@ -7,19 +7,14 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-// import path from 'path';
-import { fileURLToPath } from 'url';
-import path, { dirname } from 'path';
 import authRouter from './routes/AuthRoute.js';
 import postRouter from './routes/PostRoute.js';
 
 const app = express();
-
 const uri = 'mongodb+srv://raphabr:admin@studnetcluster.zu0mdlt.mongodb.net/?retryWrites=true&w=majority';
-
 async function connectToDB() {
   try {
-    await mongoose.connect(uri);
+    mongoose.connect(uri);
     console.log('Connected to DB');
   } catch (error) {
     console.log('Error connecting to DB');
@@ -28,22 +23,20 @@ async function connectToDB() {
 
 const configureApp = () => {
   app.use(cors());
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = dirname(__filename);
-  const buildPath = path.join(__dirname, '..', '..');
-  app.use(express.static(buildPath));
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(buildPath, 'index.html'));
-  });
 };
 
 const addRouters = () => {
   app.use('/', authRouter);
   app.use('/', postRouter);
+  // app.use('/log', authRouter);
 };
 
-connectToDB();
+app.get('*', (req, res) => {
+  console.log('New request from Backend.');
+  res.send('<h1>Hi from srever<h1/>');
+});
 
+connectToDB();
 const startServer = async () => {
   configureApp();
   addRouters();
@@ -52,42 +45,4 @@ const startServer = async () => {
     console.log(`Server is running at port: ${port}`);
   });
 };
-
-startServer();
-
-// const app = express();
-// const uri = 'mongodb+srv://raphabr:admin@studnetcluster.zu0mdlt.mongodb.net/?retryWrites=true&w=majority';
-// async function connectToDB() {
-//   try {
-//     mongoose.connect(uri);
-//     console.log('Connected to DB');
-//   } catch (error) {
-//     console.log('Error connecting to DB');
-//   }
-// }
-
-// const configureApp = () => {
-//   app.use(cors());
-// };
-
-// const addRouters = () => {
-//   app.use('/', authRouter);
-//   app.use('/', postRouter);
-//   // app.use('/log', authRouter);
-// };
-
-// app.get('*', (req, res) => {
-//   console.log('New request from Backend.');
-//   res.send('<h1>Hi from srever<h1/>');
-// });
-
-// connectToDB();
-// const startServer = async () => {
-//   configureApp();
-//   addRouters();
-//   const port = process.env.PORT || 5002;
-//   app.listen(port, () => {
-//     console.log(`Server is running at port: ${port}`);
-//   });
-// };
-// await startServer();
+await startServer();
