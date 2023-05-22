@@ -17,7 +17,7 @@ const uri = 'mongodb+srv://raphabr:admin@studnetcluster.zu0mdlt.mongodb.net/?ret
 
 async function connectToDB() {
   try {
-    mongoose.connect(uri);
+    await mongoose.connect(uri);
     console.log('Connected to DB');
   } catch (error) {
     console.log('Error connecting to DB');
@@ -27,12 +27,13 @@ async function connectToDB() {
 const configureApp = () => {
   app.use(cors());
   const __dirname = path.dirname(new URL(import.meta.url).pathname);
-  app.use(express.static(path.join(__dirname, 'client', 'build')));
+  app.use(express.static(path.join(__dirname, '..', 'client', 'build')));
 
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'client', 'build', 'index.html'));
+    res.sendFile(path.join(__dirname, '..', 'client', 'build', 'index.html'));
   });
 };
+
 
 const addRouters = () => {
   app.use('/', authRouter);
@@ -50,7 +51,7 @@ const startServer = async () => {
   });
 };
 
-await startServer();
+startServer();
 
 // const app = express();
 // const uri = 'mongodb+srv://raphabr:admin@studnetcluster.zu0mdlt.mongodb.net/?retryWrites=true&w=majority';
