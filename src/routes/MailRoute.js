@@ -4,6 +4,7 @@
 import express from 'express';
 import nodemailer from 'nodemailer';
 import { getUsers } from '../TableActions/UserActions.js';
+import { respond } from './utils.js';
 export const requestFailure = (data) => ({ success: false, data });
 
 const mailRouter = express.Router();
@@ -23,7 +24,7 @@ const transporter = nodemailer.createTransport({
 
 mailRouter.post('/email', async (req, res) => {
     const userResponse = await getUsers({ email: req.body.email});
-    if (!userResponse.success && userResponse.message === 'user not found') return requestFailure({ message: 'Invalid email.' });
+    if (!userResponse.success && userResponse.message === 'user not found') return respond(requestFailure({ message: 'Invalid email.' }), res);
    console.log(userResponse.data[0].password);
     const mailOptions = {
         from: 'studnet831@gmail.com',
@@ -39,7 +40,7 @@ mailRouter.post('/email', async (req, res) => {
         console.log('Email sent:', info.response);
       }
     });
-    
+    respond({success: true}, res);
   });
 
   export default mailRouter;
