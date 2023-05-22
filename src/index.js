@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable import/no-named-as-default-member */
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -25,6 +26,7 @@ async function connectToDB() {
 
 const configureApp = () => {
   app.use(cors());
+  const __dirname = path.dirname(new URL(import.meta.url).pathname);
   app.use(express.static(path.join(__dirname, 'client', 'build')));
 
   app.get('*', (req, res) => {
@@ -49,3 +51,40 @@ const startServer = async () => {
 };
 
 await startServer();
+
+// const app = express();
+// const uri = 'mongodb+srv://raphabr:admin@studnetcluster.zu0mdlt.mongodb.net/?retryWrites=true&w=majority';
+// async function connectToDB() {
+//   try {
+//     mongoose.connect(uri);
+//     console.log('Connected to DB');
+//   } catch (error) {
+//     console.log('Error connecting to DB');
+//   }
+// }
+
+// const configureApp = () => {
+//   app.use(cors());
+// };
+
+// const addRouters = () => {
+//   app.use('/', authRouter);
+//   app.use('/', postRouter);
+//   // app.use('/log', authRouter);
+// };
+
+// app.get('*', (req, res) => {
+//   console.log('New request from Backend.');
+//   res.send('<h1>Hi from srever<h1/>');
+// });
+
+// connectToDB();
+// const startServer = async () => {
+//   configureApp();
+//   addRouters();
+//   const port = process.env.PORT || 5002;
+//   app.listen(port, () => {
+//     console.log(`Server is running at port: ${port}`);
+//   });
+// };
+// await startServer();
