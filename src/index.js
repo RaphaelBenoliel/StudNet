@@ -7,9 +7,9 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
-import path from 'path';
+// import path from 'path';
 import { fileURLToPath } from 'url';
-import { dirname } from 'path';
+import path, { dirname } from 'path';
 import authRouter from './routes/AuthRoute.js';
 import postRouter from './routes/PostRoute.js';
 
