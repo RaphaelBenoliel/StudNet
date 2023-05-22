@@ -34,7 +34,6 @@ const configureApp = () => {
   });
 };
 
-
 const addRouters = () => {
   app.use('/', authRouter);
   app.use('/', postRouter);
