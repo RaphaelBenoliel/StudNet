@@ -3,7 +3,7 @@
 /* eslint-disable import/extensions */
 import express from 'express';
 
-import { createAuth, checkAuth } from '../controllers/Auth_controller.js';
+import { createAuth, checkAuth, allUsers } from '../controllers/Auth_controller.js';
 import { respond } from './utils.js';
 
 const authRouter = express.Router();
@@ -25,6 +25,10 @@ authRouter.post('/log', async (req, res) => {
   // const result = await checkAuth({ email, password });
   // res.status(result.status).json(result.json);
   respond(await checkAuth(req.body), res);
+});
+
+authRouter.post('/allusers', async (req, res) => {
+  respond(await allUsers(), res);
 });
 
 export default authRouter;

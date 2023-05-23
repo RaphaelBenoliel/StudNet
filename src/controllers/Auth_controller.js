@@ -37,3 +37,15 @@ export const checkAuth = async (requestObject) => {
     return { status: 500, json: { message: 'Internal server error' } };
   }
 };
+
+export const allUsers = async () => {
+  try {
+    const users = await getUsers();
+    console.log(`\t${users.data} `);
+    if (!users) return requestFailure({ message: 'Error getting users' });
+    return requestSuccess({ users });
+  } catch (error) {
+    console.error('Error finding user:', error);
+    return { status: 500, json: { message: 'Internal server error' } };
+  }
+};
