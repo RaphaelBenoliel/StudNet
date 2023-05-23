@@ -41,7 +41,6 @@ export const checkAuth = async (requestObject) => {
 export const allUsers = async () => {
   try {
     const users = await getUsers();
-    console.log(`\t${users.data} `);
     if (!users) return requestFailure({ message: 'Error getting users' });
     return requestSuccess({ users });
   } catch (error) {

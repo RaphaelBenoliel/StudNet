@@ -17,13 +17,9 @@ authRouter.post('/auth', async (req, res) => {
     email, password, userName, firstName, lastName,
   });
   respond(result, res);
-  // res.status(result.status).json(result.json);
 });
 
 authRouter.post('/log', async (req, res) => {
-  // const { email, password } = req.body;
-  // const result = await checkAuth({ email, password });
-  // res.status(result.status).json(result.json);
   respond(await checkAuth(req.body), res);
 });
 
