@@ -35,6 +35,22 @@ const UserInfo = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'PostInfo',
     }],
+    followers: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'UserInfo',
+    }],
+    following: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'UserInfo',
+    }],
+    savedPosts: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'PostInfo',
+    }],
+    likedPosts: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'PostInfo',
+    }],
   },
   {
     collection: 'UserInfo',
