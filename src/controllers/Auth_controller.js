@@ -3,6 +3,7 @@
 /* eslint-disable import/extensions */
 /* eslint-disable no-console */
 /* eslint-disable import/prefer-default-export */
+import { updateUser } from '../TableActions/UserActions.js';
 import { createUser, getUsers } from '../TableActions/UserActions.js';
 
 export const requestSuccess = (data) => ({ success: true, data });
@@ -47,4 +48,9 @@ export const allUsers = async () => {
     console.error('Error finding user:', error);
     return { status: 500, json: { message: 'Internal server error' } };
   }
+};
+
+export const updateAuth = async (requestObject) => {
+  console.log(`[GOT UPDATE AUTH REQUEST]\n\t${requestObject.email}`);
+  updateUser(requestObject);
 };

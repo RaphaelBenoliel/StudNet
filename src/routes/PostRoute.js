@@ -26,7 +26,7 @@ postRouter.post('/posts', async (req, res) => {
   const result = await getPosts();
   respond(result, res);
 });
-postRouter.delete('/posts/:id', async (req, res) => {
+postRouter.delete('/posts/delete', async (req, res) => {
   console.log('req30:', req.params);
   // const { postId, auth } = req.params;
   // const { _id: userID } = JSON.parse(auth);
@@ -34,7 +34,7 @@ postRouter.delete('/posts/:id', async (req, res) => {
   respond(result, res);
 });
 
-postRouter.put('/posts/:id', async (req, res) => {
+postRouter.put('/posts/update', async (req, res) => {
   const { id } = req.params;
   const { content } = req.body;
   const result = await updatePost(id, content);

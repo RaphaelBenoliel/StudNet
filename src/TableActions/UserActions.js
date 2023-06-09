@@ -50,9 +50,9 @@ export const removeUser = async (userId) => {
   }
 };
 
-export const updateUser = async (userId, update) => {
+export const updateUser = async (req) => {
   try {
-    const user = await User.findByIdAndUpdate(userId, update, { new: true });
+    const user = await User.findByIdAndUpdate(req, req, { new: true });
     if (!user) {
       return { success: false, message: 'User not found' };
     }
