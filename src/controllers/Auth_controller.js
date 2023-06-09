@@ -50,6 +50,17 @@ export const allUsers = async () => {
   }
 };
 
+export const getUsersById = async (requestObject) => {
+  try {
+    const users = await getUsers({ _id: requestObject.userId });
+    if (!users) return requestFailure({ message: 'Error getting users' });
+    return requestSuccess({ users });
+  } catch (error) {
+    console.error('Error finding user:', error);
+    return { status: 500, json: { message: 'Internal server error' } };
+  }
+};
+
 export const updateAuth = async (requestObject) => {
   console.log(`[GOT UPDATE AUTH REQUEST]\n\t${requestObject.email}`);
   updateUser(requestObject);
