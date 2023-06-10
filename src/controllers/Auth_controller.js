@@ -52,10 +52,19 @@ export const allUsers = async () => {
 
 export const getUsersById = async (requestObject) => {
   try {
-    console.log(`[GOT GET USER BY ID REQUEST]\n\t${{ _id: requestObject.followers }}`);
-    const users = await getUsers({ requestObject });
+    console.log(`[GOT GET USER BY ID REQUEST]\n\t${requestObject}`);
+    const users = await getUsers(requestObject);
     if (!users) return requestFailure({ message: 'Error getting users' });
-    return requestSuccess({ users });
+    console.log('print', users.data);
+    const filteredUsers = users.data.map((user) => {
+      const {
+        email, firstName, lastName, picture, posts,
+      } = user;
+      return {
+        email, firstName, lastName, picture, posts,
+      };
+    });
+    return requestSuccess({ users: filteredUsers });
   } catch (error) {
     console.error('Error finding user:', error);
     return { status: 500, json: { message: 'Internal server error' } };
