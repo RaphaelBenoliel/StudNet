@@ -29,7 +29,8 @@ authRouter.post('/allusers', async (req, res) => {
   respond(await allUsers(), res);
 });
 authRouter.post('/userbyid', async (req, res) => {
-  respond(await getUsersById(req), res);
+  console.log('req.body:', req.body);
+  respond(await getUsersById(req.body), res);
 });
 
 authRouter.put('/update', async (req, res) => {

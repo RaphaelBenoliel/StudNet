@@ -52,7 +52,8 @@ export const allUsers = async () => {
 
 export const getUsersById = async (requestObject) => {
   try {
-    const users = await getUsers({ _id: requestObject.userId });
+    console.log(`[GOT GET USER BY ID REQUEST]\n\t${{ _id: requestObject.followers }}`);
+    const users = await getUsers({ requestObject });
     if (!users) return requestFailure({ message: 'Error getting users' });
     return requestSuccess({ users });
   } catch (error) {
