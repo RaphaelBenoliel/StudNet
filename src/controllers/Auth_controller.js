@@ -3,8 +3,8 @@
 /* eslint-disable import/extensions */
 /* eslint-disable no-console */
 /* eslint-disable import/prefer-default-export */
-import { updateUser } from '../TableActions/UserActions.js';
-import { createUser, getUsers } from '../TableActions/UserActions.js';
+
+import { createUser, getUsers, updateUser } from '../TableActions/UserActions.js';
 
 export const requestSuccess = (data) => ({ success: true, data });
 

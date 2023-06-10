@@ -3,9 +3,10 @@
 /* eslint-disable import/extensions */
 import express from 'express';
 
-import { createAuth, checkAuth, allUsers } from '../controllers/Auth_controller.js';
+import {
+  createAuth, checkAuth, allUsers, updateAuth, getUsersById,
+} from '../controllers/Auth_controller.js';
 import { respond } from './utils.js';
-import { updateAuth, getUsersById } from '../controllers/Auth_controller.js';
 
 const authRouter = express.Router();
 authRouter.use(express.json());
