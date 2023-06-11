@@ -29,5 +29,13 @@ const PostInfo = new mongoose.Schema(
   },
 );
 
+// PostInfo.pre('save', function (next) {
+//   if (this.likes.length > 1) {
+//     const uniqueLikes = [...new Set(this.likes.map(like => like.toString()))];
+//     this.likes = uniqueLikes.map(like => mongoose.Types.ObjectId(like));
+//   }
+//   next();
+// });
+
 const PostInfoModel = mongoose.model('PostInfo', PostInfo);
 export default PostInfoModel;
