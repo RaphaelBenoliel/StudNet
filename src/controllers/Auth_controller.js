@@ -55,7 +55,7 @@ export const getUsersById = async (requestObject) => {
     console.log(`[GOT GET USER BY ID REQUEST]\n\t${requestObject}`);
     const users = await getUsers(requestObject);
     if (!users) return requestFailure({ message: 'Error getting users' });
-    console.log('print', users.data);
+    // console.log('print', users.data);
     const filteredUsers = users.data.map((user) => {
       const {
         email, firstName, lastName, picture, posts,

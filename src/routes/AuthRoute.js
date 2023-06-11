@@ -30,7 +30,7 @@ authRouter.post('/allusers', async (req, res) => {
 });
 authRouter.post('/userbyid', async (req, res) => {
   console.log('req.body:', req.body);
-  respond(await getUsersById({ _id: req.body.followers }), res);
+  respond(await getUsersById({ _id: req.body.users }), res);
 });
 
 authRouter.put('/update', async (req, res) => {
