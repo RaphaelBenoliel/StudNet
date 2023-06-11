@@ -11,11 +11,11 @@ const PostInfo = new mongoose.Schema(
       type: String,
       required: true,
     },
-    likes: {
-      type: Map,
-      of: Boolean,
-
-    },
+    likes: [{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'UserInfo',
+      unique: true,
+    }],
     comments: {
       type: Array,
       default: [],

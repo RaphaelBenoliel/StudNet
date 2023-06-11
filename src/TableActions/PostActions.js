@@ -83,5 +83,7 @@ export const updatePost = async (postId, updatedData, userId) => {
     throw new Error('Failed to update post');
   }
 };
+// export const likePost = async (postId, userId) => {
+//   try {
 
 export { PostInfo };

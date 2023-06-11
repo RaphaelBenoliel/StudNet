@@ -40,5 +40,10 @@ postRouter.put('/posts/update', async (req, res) => {
   const result = await updatePost(id, content);
   respond(result, res);
 });
+postRouter.get('/liked', async (req, res) => {
+  const { postId, userID } = req.body;
+  const result = await likePost(postId, userID);
+  respond(result, res);
+});
 
 export default postRouter;
