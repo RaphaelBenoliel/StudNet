@@ -51,7 +51,7 @@ export const allUsers = async () => {
 
 export const getUsersById = async (requestObject) => {
   try {
-    console.log(`[GOT GET USER BY ID REQUEST]\n\t${requestObject}`);
+    console.log('[GOT GET USER BY ID REQUEST]\n\t');
     const users = await getUsers(requestObject);
     if (!users) return requestFailure({ message: 'Error getting users' });
     // console.log('print', users.data);
