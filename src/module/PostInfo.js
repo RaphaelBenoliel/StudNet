@@ -14,7 +14,6 @@ const PostInfo = new mongoose.Schema(
     likes: [{
       type: mongoose.Schema.Types.ObjectId,
       ref: 'UserInfo',
-      unique: true,
     }],
     comments: {
       type: Array,
