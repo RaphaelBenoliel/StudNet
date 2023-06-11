@@ -33,26 +33,26 @@ export const getPosts = async (req) => {
 
 export const deletePost = async (postId, userId) => {
   try {
-    console.log('36666>>>>>>>>>>>', postId);
+    console.log('postId:', postId);
+    console.log('userId:', userId);
+    // find the user by ID to delete the post from their posts array ref
+    const user = await UserInfo.findById(userId);
+    if (!user) {
+      throw new Error('User not found');
+    }
+    // Remove the post from the user's posts array ref
+    user.posts.pull(postId);
+    await user.save();
     // Delete the post
     const post = await Post.findByIdAndDelete(postId);
     if (!post) {
-      return { status: 404, json: { message: 'Post not found' } };
+      throw new Error('Post not found');
     }
-    console.log('>>>>>>>>>>>', userId);
-    // Update the user document
-    const user = await UserInfo.findById(userId);
-    if (!user) {
-      return { status: 404, json: { message: 'User not found' } };
-    }
-
-    user.posts = user.posts.filter((posti) => posti.toString() !== postId);
-    await user.save();
-
-    return { status: 200, json: { message: 'Post deleted successfully' } };
+    console.log('Post deleted successfully:', post);
   } catch (error) {
-    console.error(error);
-    throw new Error('Failed to delete post');
+    console.error('Error Delete post:', error);
+    // Handle the error case, show an error message, etc.
+    throw error;
   }
 };
 

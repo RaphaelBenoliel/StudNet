@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable no-console */
 /* eslint-disable import/extensions */
 import express from 'express';
@@ -20,25 +21,19 @@ postRouter.post('/cpost', async (req, res) => {
 });
 
 postRouter.post('/posts', async (req, res) => {
-//   const { auth } = req.body;
-//   const { _id: userID } = JSON.parse(auth);
-//   console.log('userID:', userID);
   const result = await getPosts();
   respond(result, res);
 });
-postRouter.delete('/posts/delete', async (req, res) => {
-  console.log('req30:', req.params);
-  // const { postId, auth } = req.params;
-  // const { _id: userID } = JSON.parse(auth);
-  const result = await deletePost(req.params.id);
+postRouter.put('/posts/delete', async (req, res) => {
+  const result = await deletePost(req.body._id, req.body.userID);
   respond(result, res);
 });
 
 postRouter.put('/posts/update', async (req, res) => {
-  console.log('req:', req.body);
   const result = await updatePost(req.body._id, req.body.updatedData);
   respond(result, res);
 });
+
 // postRouter.get('/liked', async (req, res) => {
 //   const { postId, userID } = req.body;
 //   const result = await likePost(postId, userID);
