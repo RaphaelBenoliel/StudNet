@@ -56,31 +56,28 @@ export const deletePost = async (postId, userId) => {
   }
 };
 
-export const updatePost = async (postId, updatedData, userId) => {
+export const updatePost = async (postId, updatedData) => {
   try {
-    // Update the post
-    const result = await Post.findByIdAndUpdate(postId, { content: updatedData }, { new: true });
-    if (!result) {
-      return { status: 404, json: { message: 'Post not found' } };
-    }
+    console.log('updatedData:', updatedData);
+    console.log('postId:', postId);
+    // Find the post by ID and update the changes
+    const updatedPost = await Post.findOneAndUpdate(
+      { _id: postId },
+      { content: updatedData },
+      { new: true }, // Return the updated post after the update
+    );
 
-    // Check if the post belongs to the user
-    if (result.userID.toString() !== userId) {
-      return { status: 403, json: { message: 'Unauthorized' } };
+    // Handle the case when the post is not found
+    if (!updatedPost) {
+      throw new Error('Post not found');
     }
-
-    // Update the user document
-    const user = await UserInfo.findById(userId);
-    const postIndex = user.posts.findIndex((post) => post.toString() === postId);
-    if (postIndex !== -1) {
-      user.posts[postIndex] = result._id;
-    }
-    await user.save();
-
-    return { status: 200, json: { message: 'Post updated successfully', data: result } };
+    console.log('Post updated successfully:', updatedPost);
+    // Perform additional actions or return the updated post as needed
+    return updatedPost;
   } catch (error) {
-    console.error(error);
-    throw new Error('Failed to update post');
+    console.error('Error updating post:', error);
+    // Handle the error case, show an error message, etc.
+    throw error;
   }
 };
 // export const likePost = async (postId, userId) => {

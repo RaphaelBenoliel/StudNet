@@ -35,15 +35,14 @@ postRouter.delete('/posts/delete', async (req, res) => {
 });
 
 postRouter.put('/posts/update', async (req, res) => {
-  const { id } = req.params;
-  const { content } = req.body;
-  const result = await updatePost(id, content);
+  console.log('req:', req.body);
+  const result = await updatePost(req.body._id, req.body.updatedData);
   respond(result, res);
 });
-postRouter.get('/liked', async (req, res) => {
-  const { postId, userID } = req.body;
-  const result = await likePost(postId, userID);
-  respond(result, res);
-});
+// postRouter.get('/liked', async (req, res) => {
+//   const { postId, userID } = req.body;
+//   const result = await likePost(postId, userID);
+//   respond(result, res);
+// });
 
 export default postRouter;
