@@ -29,7 +29,7 @@ authRouter.post('/allusers', async (req, res) => {
   respond(await allUsers(), res);
 });
 authRouter.post('/userbyid', async (req, res) => {
-  // console.log('req.body:', );
+  console.log('req.body:', req.body);
   respond(await getUsersById({ _id: req.body.followers }), res);
 });
 
