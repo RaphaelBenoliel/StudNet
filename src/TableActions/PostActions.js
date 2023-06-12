@@ -96,7 +96,7 @@ export const likePost = async (req) => {
       const post = await Post.findById(req.postId);
       post.likes.pull(req.userId);
       await post.save();
-      console.log('Post unliked successfully:', post);
+      console.log('Post unliked successfully:', post._id);
       return { user, post };
     }
     // Add the like to the user's likedPosts array ref
@@ -106,7 +106,7 @@ export const likePost = async (req) => {
     const post = await Post.findById(req.postId);
     post.likes.push(req.userId);
     await post.save();
-    console.log('Post liked successfully:', post);
+    console.log('Post liked successfully:', post._id);
     return { user, post };
   } catch (error) {
     console.log(error);
