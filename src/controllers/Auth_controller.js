@@ -58,10 +58,10 @@ export const getUsersById = async (requestObject) => {
     // console.log('print', users.data);
     const filteredUsers = users.data.map((user) => {
       const {
-        email, firstName, lastName, picture, posts,
+        userName, email, firstName, lastName, picture, posts,
       } = user;
       return {
-        email, firstName, lastName, picture, posts,
+        userName, email, firstName, lastName, picture, posts,
       };
     });
     return requestSuccess({ users: filteredUsers });
