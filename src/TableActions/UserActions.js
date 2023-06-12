@@ -3,6 +3,7 @@
 /* eslint-disable no-console */
 import mongoose from 'mongoose';
 import UserInfo from '../module/UserInfo.js';
+import { PostInfo } from './PostActions.js';
 // import PostInfo from '../module/PostInfo.js';
 
 const User = mongoose.model('UserInfo');
@@ -39,7 +40,8 @@ export const removeUser = async (userId) => {
     // Delete each PostInfo document
     await Promise.all(
       postInfos.map(async (postInfo) => {
-        await postInfo.remove();
+        // eslint-disable-next-line no-underscore-dangle
+        await PostInfo.findByIdAndDelete(postInfo._id);
       }),
     );
     // Remove the user
