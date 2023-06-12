@@ -13,10 +13,8 @@ export const createAuth = async (requestObject) => {
   console.log(`-> GOT CREATE AUTH REQUEST\n\t${requestObject.email}`);
   try {
     const userfor = { email: requestObject.email };
-    console.log('userfor:', userfor);
     const user = await getUsers(userfor);
     if (user.success === true) return requestFailure({ message: 'The email or username alredy registered.' });
-    console.log('>>>>>>>>>>', user);
     const newUser = await createUser(requestObject);
     if (!newUser) return requestFailure({ message: 'Error creating user' });
     console.log(`\t${newUser.email} is now registered!`);

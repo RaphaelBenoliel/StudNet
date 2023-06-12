@@ -20,7 +20,6 @@ authRouter.post('/auth', async (req, res) => {
   const result = await createAuth({
     email, password, userName, firstName, lastName,
   });
-  console.log('result:', result);
   respond(result, res);
 });
 
@@ -40,7 +39,6 @@ authRouter.put('/update', async (req, res) => {
   respond(await updateAuth(req.body), res);
 });
 authRouter.put('/delete', async (req, res) => {
-  // console.log('req.body:', );
   respond(await removeUser(req.body._id), res);
 });
 

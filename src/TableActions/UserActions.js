@@ -11,7 +11,6 @@ const User = mongoose.model('UserInfo');
 export const getUsers = async (req) => {
   try {
     const users = await User.find(req);
-    console.log('getUsers result:', users);
     if (users.length > 0) return { success: true, data: users };
     const user = await User.findOne({ email: req.email });
     if (user) return { success: false };
@@ -29,7 +28,6 @@ export const createUser = async (req) => {
 
 export const removeUser = async (userId) => {
   try {
-    console.log('userId:', userId);
     const user = await User.findById(userId);
     if (!user) {
       return { success: false, message: 'User not found' };
@@ -65,22 +63,5 @@ export const updateUser = async (req) => {
     return { success: false, message: error.message };
   }
 };
-
-// User.schema.pre('remove', async function (next) {
-//   const user = this;
-//   try {
-//     // Find all PostInfo documents that reference the user being removed
-//     const postInfos = await mongoose.model('PostInfo').find({ _id: { $in: user.posts } });
-//     // Delete each PostInfo document
-//     await Promise.all(
-//       postInfos.map(async (postInfo) => {
-//         await postInfo.remove();
-//       }),
-//     );
-//     next();
-//   } catch (error) {
-//     next(error);
-//   }
-// });
 
 export { UserInfo };
