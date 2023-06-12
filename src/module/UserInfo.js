@@ -51,6 +51,21 @@ const UserInfo = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'PostInfo',
     }],
+    country: {
+      type: String,
+    },
+    studySubject: {
+      type: String,
+    },
+    schoolYear: {
+      type: String,
+    },
+    aboutMySelf: {
+      type: String,
+    },
+    phoneNumber: {
+      type: Number,
+    },
   },
   {
     collection: 'UserInfo',
