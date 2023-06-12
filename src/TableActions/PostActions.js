@@ -79,13 +79,39 @@ export const updatePost = async (postId, updatedData) => {
     throw error;
   }
 };
+
 export const likePost = async (req) => {
   try {
-    console.log('>>>', req.userId);
-    console.log('userId:', req.postId);
+    console.log('USER', req.userId);
+    console.log('POST:', req.postId);
+    // Retrieve the user object using await or exec()
+    const user = await UserInfo.findOne({ _id: req.userId });
+    // console.log('user:', user);
+    const isLiked = Array.isArray(user.likedPosts) && user.likedPosts.includes(req.postId);
+    if (isLiked) {
+      // Remove the like from the user's likedPosts array ref
+      user.likedPosts.pull(req.postId);
+      await user.save();
+      // Remove the like from the post's likes array ref
+      const post = await Post.findById(req.postId);
+      post.likes.pull(req.userId);
+      await post.save();
+      console.log('Post unliked successfully:', post);
+      return { user, post };
+    }
+    // Add the like to the user's likedPosts array ref
+    user.likedPosts.push(req.postId);
+    await user.save();
+    // Add the like to the post's likes array ref
+    const post = await Post.findById(req.postId);
+    post.likes.push(req.userId);
+    await post.save();
+    console.log('Post liked successfully:', post);
+    return { user, post };
   } catch (error) {
     console.log(error);
   }
+  return null;
 };
 
 export { PostInfo };
