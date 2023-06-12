@@ -8,7 +8,9 @@ import {
   createAuth, checkAuth, allUsers, updateAuth, getUsersById,
 } from '../controllers/Auth_controller.js';
 import { respond } from './utils.js';
-import { follow, getUserFollowingList, removeUser, unfollow } from '../TableActions/UserActions.js';
+import {
+  follow, getUserFollowingList, getUserFollowersList, removeUser, unfollow,
+} from '../TableActions/UserActions.js';
 
 const authRouter = express.Router();
 authRouter.use(express.json());
