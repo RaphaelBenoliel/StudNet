@@ -1,3 +1,4 @@
+/* eslint-disable no-underscore-dangle */
 /* eslint-disable import/named */
 /* eslint-disable no-console */
 /* eslint-disable import/extensions */
@@ -7,6 +8,7 @@ import {
   createAuth, checkAuth, allUsers, updateAuth, getUsersById,
 } from '../controllers/Auth_controller.js';
 import { respond } from './utils.js';
+import { removeUser } from '../TableActions/UserActions.js';
 
 const authRouter = express.Router();
 authRouter.use(express.json());
@@ -35,6 +37,10 @@ authRouter.post('/userbyid', async (req, res) => {
 
 authRouter.put('/update', async (req, res) => {
   respond(await updateAuth(req.body), res);
+});
+authRouter.put('/delete', async (req, res) => {
+  // console.log('req.body:', );
+  respond(await removeUser(req.body._id), res);
 });
 
 export default authRouter;

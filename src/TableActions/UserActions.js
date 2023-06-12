@@ -28,12 +28,13 @@ export const createUser = async (req) => {
 
 export const removeUser = async (userId) => {
   try {
+    console.log('userId:', userId);
     const user = await User.findById(userId);
     if (!user) {
       return { success: false, message: 'User not found' };
     }
     // Find all PostInfo documents that reference the user being removed
-    const postInfos = await mongoose.model('PostInfo').find({ _id: { $in: user.posts } });
+    const postInfos = await mongoose.model('PostInfo').find({ userID: userId });
 
     // Delete each PostInfo document
     await Promise.all(
@@ -41,9 +42,8 @@ export const removeUser = async (userId) => {
         await postInfo.remove();
       }),
     );
-
     // Remove the user
-    await user.remove();
+    await User.findByIdAndDelete(userId);
     return { success: true, message: 'User removed successfully' };
   } catch (error) {
     console.error('Error removing user:', error);

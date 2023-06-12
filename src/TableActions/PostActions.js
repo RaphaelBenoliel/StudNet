@@ -66,7 +66,6 @@ export const updatePost = async (postId, updatedData) => {
       { content: updatedData },
       { new: true }, // Return the updated post after the update
     );
-
     // Handle the case when the post is not found
     if (!updatedPost) {
       throw new Error('Post not found');
