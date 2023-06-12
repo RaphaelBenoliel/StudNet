@@ -6,29 +6,28 @@ import PostInfo from '../module/PostInfo.js';
 
 const Post = mongoose.model('PostInfo');
 const UserInfo = mongoose.model('UserInfo');
+export const getPosts = async (req) => {
+  const posts = await Post.find(req).populate('userID', 'firstName lastName picture');
+  return posts;
+};
 
 export const createPost = async (req) => {
   try {
     const { content, userID } = req;
-
     // Create the new post
     const post = new Post({ content, userID });
     const savedPost = await post.save();
-
+    const posts = await getPosts();
     // Update the user document
     const user = await UserInfo.findById(userID);
     user.posts.push(savedPost._id);
     await user.save();
-    return savedPost;
+    // to do return the post with the user populated
+    return { user, posts };
   } catch (error) {
     console.error(error);
     throw new Error('Failed to create post');
   }
-};
-
-export const getPosts = async (req) => {
-  const posts = await Post.find(req).populate('userID', 'firstName lastName picture');
-  return posts;
 };
 
 export const deletePost = async (postId, userId) => {
