@@ -64,4 +64,68 @@ export const updateUser = async (req) => {
   }
 };
 
+export const follow = async (req) => {
+  try {
+    const { user1_ID, user2_ID } = req;
+
+    const user1 = await User.findById(user1_ID);
+    user1.following.push(user2_ID);
+    await user1.save();
+
+    const user2 = await User.findById(user2_ID);
+    user2.followers.push(user1_ID);
+    await user2.save();
+    
+    return { success: true, data: user1.following };
+  } catch (error) {
+    console.error('Error follow user:', error);
+    return { success: false, message: error.message };
+  }
+};
+
+export const unfollow = async (req) => {
+ try {
+    const { user1_ID, user2_ID } = req;
+
+    const user1 = await User.findById(user1_ID);
+    user1.following.pull(user2_ID);
+    await user1.save();
+
+    const user2 = await User.findById(user2_ID);
+    user2.followers.pull(user1_ID);
+    await user2.save();
+    
+    return { success: true, data: user1.following };
+  } catch (error) {
+    console.error('Error unfollow user:', error);
+    return { success: false, message: error.message };
+  }
+};
+
+export const getUserFollowingList = async (req) => {
+  try {
+     
+     const { user_ID } = req;
+     const user = await User.findById(user_ID);
+
+     return { success: true, data: user.following };
+   } catch (error) {
+     console.error('Error reading user following list:', error);
+     return { success: false, message: error.message };
+   }
+ };
+
+ export const getUserFollowersList = async (req) => {
+  try {
+     
+     const { user_ID } = req;
+     const user = await User.findById(user_ID);
+
+     return { success: true, data: user.followers };
+   } catch (error) {
+     console.error('Error reading user following list:', error);
+     return { success: false, message: error.message };
+   }
+ };
+
 export { UserInfo };

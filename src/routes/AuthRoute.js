@@ -8,7 +8,7 @@ import {
   createAuth, checkAuth, allUsers, updateAuth, getUsersById,
 } from '../controllers/Auth_controller.js';
 import { respond } from './utils.js';
-import { removeUser } from '../TableActions/UserActions.js';
+import { follow, getUserFollowingList, removeUser, unfollow } from '../TableActions/UserActions.js';
 
 const authRouter = express.Router();
 authRouter.use(express.json());
@@ -38,8 +38,37 @@ authRouter.post('/userbyid', async (req, res) => {
 authRouter.put('/update', async (req, res) => {
   respond(await updateAuth(req.body), res);
 });
+
 authRouter.put('/delete', async (req, res) => {
   respond(await removeUser(req.body._id), res);
+});
+
+authRouter.post('/follow', async (req, res) => {
+  console.log('follow------req:', req.body);
+  const result = await follow(req.body);
+  console.log(result);
+  respond(result, res);
+});
+
+authRouter.post('/unfollow', async (req, res) => {
+  console.log('unfollow------req:', req.body);
+  const result = await unfollow(req.body);
+  console.log(result);
+  respond(result, res);
+});
+
+authRouter.post('/getFollowing', async (req, res) => {
+  console.log('getFollowing------req:', req.body);
+  const result = await getUserFollowingList(req.body);
+  console.log(result);
+  respond(result, res);
+});
+
+authRouter.post('/getFollowers', async (req, res) => {
+  console.log('getFollowing------req:', req.body);
+  const result = await getUserFollowersList(req.body);
+  console.log(result);
+  respond(result, res);
 });
 
 export default authRouter;
