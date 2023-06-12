@@ -20,6 +20,7 @@ authRouter.post('/auth', async (req, res) => {
   const result = await createAuth({
     email, password, userName, firstName, lastName,
   });
+  console.log('result:', result);
   respond(result, res);
 });
 

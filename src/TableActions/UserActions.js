@@ -11,7 +11,7 @@ const User = mongoose.model('UserInfo');
 export const getUsers = async (req) => {
   try {
     const users = await User.find(req);
-    // console.log('getUsers result:', users);
+    console.log('getUsers result:', users);
     if (users.length > 0) return { success: true, data: users };
     const user = await User.findOne({ email: req.email });
     if (user) return { success: false };
