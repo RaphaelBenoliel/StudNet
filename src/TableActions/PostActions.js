@@ -80,7 +80,13 @@ export const updatePost = async (postId, updatedData) => {
     throw error;
   }
 };
-// export const likePost = async (postId, userId) => {
-//   try {
+export const likePost = async (req) => {
+  try {
+    console.log('>>>', req.userId);
+    console.log('userId:', req.postId);
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 export { PostInfo };

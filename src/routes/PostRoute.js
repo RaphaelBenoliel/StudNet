@@ -3,7 +3,7 @@
 /* eslint-disable import/extensions */
 import express from 'express';
 import {
-  createPost, getPosts, updatePost, deletePost,
+  createPost, getPosts, updatePost, deletePost, likePost,
 } from '../TableActions/PostActions.js';
 import { respond } from './utils.js';
 
@@ -34,10 +34,10 @@ postRouter.put('/posts/update', async (req, res) => {
   respond(result, res);
 });
 
-// postRouter.get('/liked', async (req, res) => {
-//   const { postId, userID } = req.body;
-//   const result = await likePost(postId, userID);
-//   respond(result, res);
-// });
+postRouter.post('/posts/liked', async (req, res) => {
+  console.log('req.body:', req.body);
+  const result = await likePost(req.body);
+  respond(result, res);
+});
 
 export default postRouter;
