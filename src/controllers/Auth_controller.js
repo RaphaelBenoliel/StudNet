@@ -71,12 +71,13 @@ export const getUsersById = async (requestObject) => { // list of users
   }
 };
 
-export const getUserById = async (requestObject) => { //only one user
+// only one user
+export const getUserById = async (requestObject) => {
   try {
     console.log('[GOT GET USER BY ID REQUEST]\n\t');
     const users = await getUsers(requestObject);
     if (!users) return requestFailure({ message: 'Error getting users' });
-    return requestSuccess({ users: users });
+    return requestSuccess({ users });
   } catch (error) {
     console.error('Error finding user:', error);
     return { status: 500, json: { message: 'Internal server error' } };

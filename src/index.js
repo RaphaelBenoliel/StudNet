@@ -44,7 +44,7 @@ const addRouters = () => {
       // File upload successful
       console.log('File uploaded:', req.file);
       // Perform additional actions or send a response to the client
-      const pictureUrl = `http://localhost:5002/uploads/${req.file.filename}`;
+      const pictureUrl = `https://studnet.onrender.com/uploads/${req.file.filename}`;
       res.status(200).json({ message: 'File uploaded successfully', url: pictureUrl });
     } else {
       // No file uploaded or file upload failed

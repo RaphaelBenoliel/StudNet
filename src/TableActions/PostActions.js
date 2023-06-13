@@ -32,8 +32,8 @@ export const createPost = async (req) => {
 
 export const deletePost = async (postId, userId) => {
   try {
-    console.log('postId:', postId);
-    console.log('userId:', userId);
+    // console.log('postId:', postId);
+    // console.log('userId:', userId);
     // find the user by ID to delete the post from their posts array ref
     const user = await UserInfo.findById(userId);
     if (!user) {
@@ -57,8 +57,8 @@ export const deletePost = async (postId, userId) => {
 
 export const updatePost = async (postId, updatedData) => {
   try {
-    console.log('updatedData:', updatedData);
-    console.log('postId:', postId);
+    // console.log('updatedData:', updatedData);
+    // console.log('postId:', postId);
     // Find the post by ID and update the changes
     const updatedPost = await Post.findOneAndUpdate(
       { _id: postId },
@@ -81,8 +81,8 @@ export const updatePost = async (postId, updatedData) => {
 
 export const likePost = async (req) => {
   try {
-    console.log('USER', req.userId);
-    console.log('POST:', req.postId);
+    // console.log('USER', req.userId);
+    // console.log('POST:', req.postId);
     // Retrieve the user object using await or exec()
     const user = await UserInfo.findOne({ _id: req.userId });
     // console.log('user:', user);
