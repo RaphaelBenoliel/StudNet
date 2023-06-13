@@ -6,7 +6,6 @@ import mongoose from 'mongoose';
 import UserInfo from '../module/UserInfo.js';
 import { PostInfo } from './PostActions.js';
 // import PostInfo from '../module/PostInfo.js';
-
 const User = mongoose.model('UserInfo');
 
 export const getUsers = async (req) => {
