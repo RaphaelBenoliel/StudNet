@@ -7,11 +7,22 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import cors from 'cors';
+import multer from 'multer';
 import authRouter from './routes/AuthRoute.js';
 import postRouter from './routes/PostRoute.js';
 import mailRouter from './routes/MailRoute.js';
 
 const app = express();
+const storage = multer.diskStorage({
+  destination(req, file, cb) {
+    cb(null, 'uploads/'); // Specify the directory where the uploaded files will be stored
+  },
+  filename(req, file, cb) {
+    cb(null, file.originalname); // Use the original filename for the uploaded file
+  },
+});
+
+const upload = multer({ storage });
 const uri = 'mongodb+srv://raphabr:admin@studnetcluster.zu0mdlt.mongodb.net/?retryWrites=true&w=majority';
 async function connectToDB() {
   try {
@@ -27,6 +38,20 @@ const configureApp = () => {
 };
 
 const addRouters = () => {
+  app.post('/api/upload', upload.single('image'), (req, res) => {
+    console.log('file:', req.file);
+    if (req.file) {
+      // File upload successful
+      console.log('File uploaded:', req.file);
+      // Perform additional actions or send a response to the client
+      const pictureUrl = `http://localhost:5002/uploads/${req.file.filename}`;
+      res.status(200).json({ message: 'File uploaded successfully', url: pictureUrl });
+    } else {
+      // No file uploaded or file upload failed
+      console.log('File upload failed');
+      res.status(400).json({ error: 'File upload failed' });
+    }
+  });
   app.use('/', authRouter);
   app.use('/', postRouter);
   app.use('/', mailRouter);
