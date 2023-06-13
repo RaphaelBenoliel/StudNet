@@ -50,7 +50,7 @@ export const allUsers = async () => {
   }
 };
 
-export const getUsersById = async (requestObject) => {
+export const getUsersById = async (requestObject) => { // list of users
   try {
     console.log('[GOT GET USER BY ID REQUEST]\n\t');
     const users = await getUsers(requestObject);
@@ -65,6 +65,18 @@ export const getUsersById = async (requestObject) => {
       };
     });
     return requestSuccess({ users: filteredUsers });
+  } catch (error) {
+    console.error('Error finding user:', error);
+    return { status: 500, json: { message: 'Internal server error' } };
+  }
+};
+
+export const getUserById = async (requestObject) => { //only one user
+  try {
+    console.log('[GOT GET USER BY ID REQUEST]\n\t');
+    const users = await getUsers(requestObject);
+    if (!users) return requestFailure({ message: 'Error getting users' });
+    return requestSuccess({ users: users });
   } catch (error) {
     console.error('Error finding user:', error);
     return { status: 500, json: { message: 'Internal server error' } };

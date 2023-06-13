@@ -5,7 +5,7 @@
 import express from 'express';
 
 import {
-  createAuth, checkAuth, allUsers, updateAuth, getUsersById,
+  createAuth, checkAuth, allUsers, updateAuth, getUsersById, getUserById,
 } from '../controllers/Auth_controller.js';
 import { respond } from './utils.js';
 import {
@@ -35,6 +35,10 @@ authRouter.post('/allusers', async (req, res) => {
 
 authRouter.post('/userbyid', async (req, res) => {
   respond(await getUsersById({ _id: req.body.users }), res);
+});
+
+authRouter.post('/getuserbyid', async (req, res) => {
+  respond(await getUserById({ _id: req.body.users }), res);
 });
 
 authRouter.put('/update', async (req, res) => {
